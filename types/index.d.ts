@@ -464,6 +464,8 @@ interface IResize {
 
 /** @link https://ld246.com/article/1549638745630#options */
 interface IOptions {
+    /** 历史记录间隔 */
+    undoDelay?: number;
     /** 内部调试时使用 */
     _lutePath?: string;
     /** 编辑器初始化值。默认值: '' */
@@ -491,6 +493,11 @@ interface IOptions {
         enable: boolean;
         max?: number;
         type?: "markdown" | "text";
+        after?(length: number, counter: {
+            enable: boolean;
+            max?: number;
+            type?: "markdown" | "text"
+        }): void
     };
     /** @link https://ld246.com/article/1549638745630#options-cache */
     cache?: {
