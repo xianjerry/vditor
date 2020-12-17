@@ -1,6 +1,7 @@
 import {processHeading} from "../ir/process";
 import {processKeydown as irProcessKeydown} from "../ir/processKeydown";
 import {getMarkdown} from "../markdown/getMarkdown";
+import {previewImage} from "../preview/image";
 import {processHeading as processHeadingSV} from "../sv/process";
 import {processKeydown as mdProcessKeydown} from "../sv/processKeydown";
 import {setEditMode} from "../toolbar/EditMode";
@@ -21,6 +22,14 @@ export const focusEvent = (vditor: IVditor, editorElement: HTMLElement) => {
             vditor.options.focus(getMarkdown(vditor));
         }
         hidePanel(vditor, ["subToolbar"]);
+    });
+};
+
+export const dblclickEvent = (vditor: IVditor, editorElement: HTMLElement) => {
+    editorElement.addEventListener("dblclick", (event: MouseEvent & { target: HTMLElement }) => {
+        if (event.target.tagName === "IMG") {
+            previewImage(event.target as HTMLImageElement, vditor.options.lang, vditor.options.theme);
+        }
     });
 };
 
